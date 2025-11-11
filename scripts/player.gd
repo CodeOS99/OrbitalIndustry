@@ -15,6 +15,9 @@ var t_bob = 0.0
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
 
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = 9.8
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 
@@ -31,6 +34,10 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
