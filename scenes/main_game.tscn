@@ -1,14 +1,17 @@
-[gd_scene load_steps=13 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=16 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
 [ext_resource type="PackedScene" uid="uid://7e4b6getdb3v" path="res://assets/dome/dome.blend" id="3_8ls0j"]
+[ext_resource type="Script" path="res://scripts/computer.gd" id="4_8nu14"]
+[ext_resource type="PackedScene" uid="uid://df8g347j6gqpw" path="res://assets/computer/computer.blend" id="4_edw8i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
 resource_name = "DomeGlass"
 cull_mode = 2
-albedo_color = Color(0, 1, 0.839216, 0.32549)
-roughness = 0.5
+albedo_color = Color(0, 1, 0.839216, 0.580392)
+roughness = 0.0
+refraction_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tjvfm"]
 _surfaces = [{
@@ -63,12 +66,19 @@ tonemap_mode = 2
 albedo_texture = ExtResource("2_bk4xl")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ij0bg"]
-size = Vector3(100, 0.36, 100)
+size = Vector3(250, 0.36, 250)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7t7eg"]
 points = PackedVector3Array(-18, -0.18, -18, -18, 0.18, -18, 18, -0.18, -18, -18, -0.18, 18, -18, 0.18, 18, 18, 0.18, -18, 18, -0.18, 18, 18, 0.18, 18)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_4g6mu"]
+radius = 5.00448
+
 [node name="MainGame" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.979667, -0.100001, -0.173932, -0.166332, -0.0799414, 0.982824, -0.112188, 0.991771, 0.0616826, 6.48281, 72.9804, -3.65598)
+shadow_enabled = true
 
 [node name="dome2" parent="." instance=ExtResource("3_8ls0j")]
 transform = Transform3D(4.775, 0, 0, 0, 4.775, 0, 0, 0, 4.775, 3.71856, 0.18, -0.918841)
@@ -90,5 +100,20 @@ mesh = SubResource("BoxMesh_ij0bg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_7t7eg")
+
+[node name="Computer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7155, 3.56124, 0)
+script = ExtResource("4_8nu14")
+
+[node name="mesh" parent="Computer" instance=ExtResource("4_edw8i")]
+transform = Transform3D(-0.0163848, 0, -0.484723, 0, 0.485, 0, 0.484723, 0, -0.0163848, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="Computer"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Computer/Area3D"]
+shape = SubResource("SphereShape3D_4g6mu")
+
+[connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]
 
 [editable path="dome2"]

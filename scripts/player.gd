@@ -1,9 +1,9 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 var speed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
-const JUMP_VELOCITY = 7
+const JUMP_VELOCITY = 5
 const SENSITIVITY = 0.004
 
 #bob variables
@@ -24,14 +24,13 @@ var gravity = 4.9
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	Globals.player = self
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -73,9 +72,14 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+func toggle_interaction():
+	$UI/HUD/Interact.visible = not $UI/HUD/Interact.visible
+
+func show_computer():
+	$UI/ComputerUI.visible = true
