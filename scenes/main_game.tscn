@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=18 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
 [ext_resource type="PackedScene" uid="uid://7e4b6getdb3v" path="res://assets/dome/dome.blend" id="3_8ls0j"]
 [ext_resource type="Script" path="res://scripts/computer.gd" id="4_8nu14"]
 [ext_resource type="PackedScene" uid="uid://df8g347j6gqpw" path="res://assets/computer/computer.blend" id="4_edw8i"]
+[ext_resource type="Script" path="res://scripts/manul_drone.gd" id="6_g0pnh"]
+[ext_resource type="PackedScene" uid="uid://drv85j4aeln3n" path="res://assets/drone/drone.blend" id="6_x6opd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
 resource_name = "DomeGlass"
@@ -112,6 +114,15 @@ transform = Transform3D(-0.0163848, 0, -0.484723, 0, 0.485, 0, 0.484723, 0, -0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Computer/Area3D"]
 shape = SubResource("SphereShape3D_4g6mu")
+
+[node name="ManulDrone" type="Node3D" parent="."]
+script = ExtResource("6_g0pnh")
+
+[node name="Camera3D" type="Camera3D" parent="ManulDrone"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 48.7847, 0.740692, 7.47992)
+
+[node name="mesh" parent="ManulDrone" instance=ExtResource("6_x6opd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 47.7198, 0.18, 7.47992)
 
 [connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]

@@ -27,12 +27,16 @@ func _ready():
 	Globals.player = self
 
 func _unhandled_input(event):
+	if not camera.is_current():
+		return
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
+	if not camera.is_current():
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -82,4 +86,5 @@ func toggle_interaction():
 	$UI/HUD/Interact.visible = not $UI/HUD/Interact.visible
 
 func show_computer():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$UI/ComputerUI.visible = true
