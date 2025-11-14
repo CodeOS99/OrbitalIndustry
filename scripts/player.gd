@@ -88,3 +88,6 @@ func toggle_interaction():
 func show_computer():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$UI/ComputerUI.visible = true
+
+func active():
+	return camera.is_current()
