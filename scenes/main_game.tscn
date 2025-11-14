@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=19 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://df8g347j6gqpw" path="res://assets/computer/computer.blend" id="4_edw8i"]
 [ext_resource type="Script" path="res://scripts/manul_drone.gd" id="6_g0pnh"]
 [ext_resource type="PackedScene" uid="uid://drv85j4aeln3n" path="res://assets/drone/drone.blend" id="6_x6opd"]
+[ext_resource type="PackedScene" uid="uid://dx8e1vb2lf606" path="res://assets/rock/rock.blend" id="8_tpuri"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
 resource_name = "DomeGlass"
@@ -119,14 +120,17 @@ shape = SubResource("SphereShape3D_4g6mu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.72, 0.18, 7.48)
 script = ExtResource("6_g0pnh")
 
-[node name="mesh" parent="ManualDrone" instance=ExtResource("6_x6opd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-
 [node name="Head" type="Node3D" parent="ManualDrone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15634, 0.720756, 0)
 
 [node name="Camera3D" type="Camera3D" parent="ManualDrone/Head"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.15634, -0.720756, 0)
+
+[node name="rock" parent="." instance=ExtResource("8_tpuri")]
+transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 38.736, 0.983244, 6.01779)
 
 [connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]
