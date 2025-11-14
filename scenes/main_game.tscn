@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=20 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://df8g347j6gqpw" path="res://assets/computer/computer.blend" id="4_edw8i"]
 [ext_resource type="Script" path="res://scripts/manul_drone.gd" id="6_g0pnh"]
 [ext_resource type="PackedScene" uid="uid://drv85j4aeln3n" path="res://assets/drone/drone.blend" id="6_x6opd"]
+[ext_resource type="Texture2D" uid="uid://c3cil3vd26cjt" path="res://assets/drone_crosshair/drone_crosshair.png" id="7_b8tcd"]
 [ext_resource type="PackedScene" uid="uid://dx8e1vb2lf606" path="res://assets/rock/rock.blend" id="8_tpuri"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
@@ -125,6 +126,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15634, 0.720756, 0)
 
 [node name="Camera3D" type="Camera3D" parent="ManualDrone/Head"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ManualDrone/Head/Camera3D"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="ManualDrone/Head/Camera3D/CanvasLayer"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_b8tcd")
 
 [node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.15634, -0.720756, 0)

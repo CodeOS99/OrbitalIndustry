@@ -43,3 +43,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = lerp(velocity.y, 0.0, delta * 7.0)
 	
 	move_and_slide()
+
+func _process(delta: float) -> void:
+	$Head/Camera3D/CanvasLayer.visible = $Head/Camera3D.is_current()
