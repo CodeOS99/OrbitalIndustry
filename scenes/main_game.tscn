@@ -253,7 +253,7 @@ pitch_scale = 1.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15634, 0.720756, 0)
 
 [node name="Camera3D" type="Camera3D" parent="ManualDrone/Head"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.09096, 0.727513, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ManualDrone/Head/Camera3D"]
 
@@ -304,9 +304,9 @@ target_position = Vector3(20, 0, 0)
 libraries = {
 "": SubResource("AnimationLibrary_7e78q")
 }
-autoplay = "fly"
 
 [node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="rock" type="StaticBody3D" parent="." groups=["drone_interactable"]]
 

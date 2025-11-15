@@ -9,6 +9,7 @@ const SENSITIVITY := 0.004
 @onready var raycast: RayCast3D = $Head/RayCast3D
 @onready var interact_label: Label = $Head/Camera3D/CanvasLayer/InteractLabel
 @onready var crosshair: TextureRect = $Head/Camera3D/CanvasLayer/Crosshair
+@onready var animation_player: AnimationPlayer = $Head/AnimationPlayer
 
 var interactable_col := false
 var interactable_body: Node3D
@@ -54,7 +55,11 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	$Head/Camera3D/CanvasLayer.visible = $Head/Camera3D.is_current()
 	if not camera.is_current():
+		animation_player.play("RESET");
 		return
+	
+	if not animation_player.current_animation == "fly":
+		animation_player.play("fly")
 	
 	raycast_interacttion()
 	
