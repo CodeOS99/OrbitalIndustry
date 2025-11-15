@@ -12,6 +12,7 @@ const SENSITIVITY := 0.004
 
 var interactable_col := false
 var interactable_body: Node3D
+var played_blip := true
 
 func _ready() -> void:
 	Globals.manual_drone = self
@@ -61,13 +62,21 @@ func _process(delta: float) -> void:
 func raycast_interacttion():
 	interactable_col = false
 	if raycast.is_colliding():
-		interactable_body = raycast.get_collider()
-		if interactable_body.is_in_group("drone_interactable"):
+		var curr_body = raycast.get_collider()
+		if curr_body.is_in_group("drone_interactable"):
 			interactable_col = true
+			if played_blip:
+				played_blip = not(interactable_body != curr_body)
+			interactable_body = curr_body
+	else:
+		played_blip = false
 	
 	if interactable_col:
 		interact_label.visible = true
 		crosshair.modulate = Color(0, 1, 0)
+		if not played_blip:
+			played_blip = true
+			$TargetLocked.play()
 	else:
 		interact_label.visible = false
 		crosshair.modulate = Color(1, 1, 1)
