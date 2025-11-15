@@ -6,6 +6,12 @@ const SENSITIVITY := 0.004
 
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var head: Node3D = $Head
+@onready var raycast: RayCast3D = $Head/RayCast3D
+@onready var interact_label: Label = $Head/Camera3D/CanvasLayer/InteractLabel
+@onready var crosshair: TextureRect = $Head/Camera3D/CanvasLayer/Crosshair
+
+var interactable_col := false
+var interactable_body: Node3D
 
 func _ready() -> void:
 	Globals.manual_drone = self
@@ -46,3 +52,22 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	$Head/Camera3D/CanvasLayer.visible = $Head/Camera3D.is_current()
+	if not camera.is_current():
+		return
+	
+	raycast_interacttion()
+	
+	
+func raycast_interacttion():
+	interactable_col = false
+	if raycast.is_colliding():
+		interactable_body = raycast.get_collider()
+		if interactable_body.is_in_group("drone_interactable"):
+			interactable_col = true
+	
+	if interactable_col:
+		interact_label.visible = true
+		crosshair.modulate = Color(0, 1, 0)
+	else:
+		interact_label.visible = false
+		crosshair.modulate = Color(1, 1, 1)
