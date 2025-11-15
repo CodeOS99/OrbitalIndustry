@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=27 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
@@ -87,6 +87,116 @@ shader_parameter/noise_amount = 0.2
 shader_parameter/vignette_strength = 0.196
 shader_parameter/effect_opactiy = 0.635
 shader_parameter/green_intensity = 0.263
+
+[sub_resource type="Animation" id="Animation_u4nbk"]
+resource_name = "fly"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh/Cube:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.26573, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh/Cube_001:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.26573, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("mesh/Cube_002:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.26573, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("mesh/Cube_003:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.26573, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jhcp0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh/Cube:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh/Cube_001:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("mesh/Cube_002:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("mesh/Cube_003:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7e78q"]
+_data = {
+"RESET": SubResource("Animation_jhcp0"),
+"fly": SubResource("Animation_u4nbk")
+}
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jhgj3"]
 points = PackedVector3Array(-0.250473, -0.361982, -0.912831, 1.01804, 0.377301, 0.143531, 0.950316, 0.426985, 0.191919, 0.275728, 0.479996, -1.73845, -0.142139, 0.742057, 1.60612, 0.719386, -0.436607, 0.532143, -0.796809, -0.212626, 0.201565, -0.65879, 0.478455, -0.222786, 0.712965, -0.429313, -0.553442, -0.261311, -0.434051, 0.856157, 0.0145821, 0.900793, 0.141902, -0.621979, -0.41636, -0.384902, 0.988505, 0.47518, -0.169674, -0.502461, 0.478282, -0.741508, -0.0410435, 0.646213, 1.64389, -0.669748, 0.48174, 0.563183, 0.227091, 0.380219, -1.79715, -0.0414395, 0.915238, 0.736412, 0.119176, 0.788957, -0.689279, 1.02133, 0.324681, -0.17352, -0.396464, 0.683474, -0.325317, -0.256699, -0.425817, -0.873232, 0.329764, 0.324108, -1.70093, -0.679432, -0.420036, 0.304763, -0.0379213, 0.743367, 1.61053, -0.144308, 0.640621, 1.62002, -0.514426, 0.271585, -0.754474, 0.898022, 0.530678, 0.0359661, -0.732245, 0.324908, -0.120478, 0.971235, 0.112174, 0.198456, -0.737192, 0.325371, 0.467405, -0.685256, -0.424888, -0.228059)
@@ -187,11 +297,16 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E to interact"
 
-[node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.15634, -0.720756, 0)
-
 [node name="RayCast3D" type="RayCast3D" parent="ManualDrone/Head"]
 target_position = Vector3(20, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ManualDrone/Head"]
+libraries = {
+"": SubResource("AnimationLibrary_7e78q")
+}
+autoplay = "fly"
+
+[node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
 
 [node name="rock" type="StaticBody3D" parent="." groups=["drone_interactable"]]
 
@@ -206,4 +321,5 @@ transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 38.736, 0.983244, 6.
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]
 
 [editable path="dome2"]
+[editable path="ManualDrone/Head/mesh"]
 [editable path="rock/mesh"]
