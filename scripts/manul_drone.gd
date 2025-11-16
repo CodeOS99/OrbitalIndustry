@@ -17,6 +17,7 @@ var interactable_col := false
 var interactable_body: Node3D
 var played_blip := true
 var bullet := preload("res://scenes/bullet.tscn")
+var bullet_cooldown := true
 
 func _ready() -> void:
 	Globals.manual_drone = self
@@ -27,15 +28,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * SENSITIVITY)
-		head.rotate_z(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		head.rotate_x(-event.relative.y * SENSITIVITY)
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
 	if not camera.is_current():
 		return
 	
 	var speed := NORMAL_SPEED
-	var input_dir := Input.get_vector("down", "up", "left", "right")
+	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction != Vector3.ZERO:
@@ -66,16 +67,26 @@ func _process(delta: float) -> void:
 	
 	raycast_interacttion()
 	
-	if interactable_col and Input.is_action_pressed("interact"):
-		var b_l := bullet.instantiate()
-		get_tree().root.add_child(b_l)
-		b_l.global_position = bullet_point_left.global_position
-		b_l.rotation.x = rotation.y
-		
-		var b_r := bullet.instantiate()
-		get_tree().root.add_child(b_r)
-		b_r.global_position = bullet_point_right.global_position
-		b_r.global_rotation = bullet_point_right.global_rotation
+	if interactable_col and Input.is_action_pressed("interact") and bullet_cooldown:
+		shoot_bullets()
+		bullet_cooldown = false
+	
+	if Input.is_action_just_released("interact"):
+		bullet_cooldown = true
+
+func shoot_bullets():
+	var shoot_direction := -camera.global_transform.basis.z
+	
+	var b_l := bullet.instantiate()
+	get_tree().root.add_child(b_l)
+	b_l.global_position = bullet_point_left.global_position
+	
+	var b_r := bullet.instantiate()
+	get_tree().root.add_child(b_r)
+	b_r.global_position = bullet_point_right.global_position
+	
+	b_l.target = interactable_body
+	b_r.target = interactable_body
 
 func raycast_interacttion():
 	interactable_col = false

@@ -253,7 +253,7 @@ pitch_scale = 1.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15634, 0.720756, 0)
 
 [node name="Camera3D" type="Camera3D" parent="ManualDrone/Head"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.09096, 0.727513, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00563049, 0.891731, -1.03018)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ManualDrone/Head/Camera3D"]
 
@@ -298,7 +298,8 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E to interact"
 
 [node name="RayCast3D" type="RayCast3D" parent="ManualDrone/Head"]
-target_position = Vector3(20, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -20)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ManualDrone/Head"]
 libraries = {
@@ -306,22 +307,22 @@ libraries = {
 }
 
 [node name="mesh" parent="ManualDrone/Head" instance=ExtResource("6_x6opd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="BulletPointLeft" type="Node3D" parent="ManualDrone/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42329, 0.101153, -0.826045)
 
 [node name="BulletPointRight" type="Node3D" parent="ManualDrone/Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42329, 0.101153, 0.708636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12642, 0.256055, -1.38511)
 
 [node name="rock" type="StaticBody3D" parent="." groups=["drone_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.736, 0.983, 6.018)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="rock"]
-transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 38.736, 0.983244, 6.01779)
+transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jhgj3")
 
 [node name="mesh" parent="rock" instance=ExtResource("8_tpuri")]
-transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 38.736, 0.983244, 6.01779)
+transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 0, 0, 0)
 
 [connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]
