@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ispygjsm1prg"]
+[gd_scene load_steps=10 format=3 uid="uid://ispygjsm1prg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_rcl8d"]
 [ext_resource type="Script" path="res://scripts/computer_ui.gd" id="2_0o8bx"]
 [ext_resource type="Script" path="res://scripts/computer_main_menu.gd" id="3_18so8"]
+[ext_resource type="Script" path="res://scripts/rock_label.gd" id="4_ubcf1"]
+[ext_resource type="Script" path="res://scripts/grid_container.gd" id="5_5qbkt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rd64r"]
 height = 5.0
@@ -96,7 +98,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ComputerUI" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,6 +108,7 @@ mouse_filter = 2
 script = ExtResource("2_0o8bx")
 
 [node name="ComputerMainMenu" type="Control" parent="UI/ComputerUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,7 +145,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Explore from manual drone"
 
-[node name="Label" type="Label" parent="UI/ComputerUI/ComputerMainMenu"]
+[node name="Button2" type="Button" parent="UI/ComputerUI/ComputerMainMenu/MenuOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Shop"
+
+[node name="Title" type="Label" parent="UI/ComputerUI/ComputerMainMenu"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -155,4 +162,115 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 45
 text = "ORIBTAL INC. MANAGEMENT SOFTWARE"
 
+[node name="Label2" type="Label" parent="UI/ComputerUI/ComputerMainMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Rocks: 0"
+script = ExtResource("4_ubcf1")
+
+[node name="ShopMenu" type="Control" parent="UI/ComputerUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/ComputerUI/ShopMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_qar64")
+
+[node name="Label2" type="Label" parent="UI/ComputerUI/ShopMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Rocks: 0"
+script = ExtResource("4_ubcf1")
+
+[node name="Title" type="Label" parent="UI/ComputerUI/ShopMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -520.5
+offset_right = 520.5
+offset_bottom = 57.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 45
+text = "SHOP"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="UI/ComputerUI/ShopMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -545.0
+offset_top = -36.0
+offset_right = 545.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+script = ExtResource("5_5qbkt")
+
+[node name="Button" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "INCREASE DRONE SPEED(10)"
+
+[node name="Button2" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "INCREASE ROCKS PER ROCK(15)"
+
+[node name="Button3" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "INCREASE REGENERATION OF ROCKS(20)"
+
+[node name="Button4" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "AUTOMATIC DRONE LVL 1(10)"
+
+[node name="Button5" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "AUTOMATIC DRONE LVL 2(20)"
+
+[node name="Button6" type="Button" parent="UI/ComputerUI/ShopMenu/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "AUTOMATIC DRONE LVL 3(40)"
+
+[node name="RockGiver" type="Node3D" parent="."]
+
 [connection signal="pressed" from="UI/ComputerUI/ComputerMainMenu/MenuOptions/Button" to="UI/ComputerUI/ComputerMainMenu" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/ComputerUI/ComputerMainMenu/MenuOptions/Button2" to="UI/ComputerUI/ComputerMainMenu" method="_on_button_2_pressed"]

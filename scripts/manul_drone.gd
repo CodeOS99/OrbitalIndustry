@@ -1,7 +1,6 @@
 class_name ManualDrone
 extends CharacterBody3D
 
-const NORMAL_SPEED := 5.0
 const SENSITIVITY := 0.004
 
 @onready var camera: Camera3D = $Head/Camera3D
@@ -35,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if not camera.is_current():
 		return
 	
-	var speed := NORMAL_SPEED
+	var speed := Globals.drone_speed
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	

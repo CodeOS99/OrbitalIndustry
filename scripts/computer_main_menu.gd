@@ -5,3 +5,8 @@ func _on_button_pressed() -> void:
 	$"..".visible = false
 	$"../../HUD/Interact".visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _on_button_2_pressed() -> void:
+	$".".visible = false
+	$"../ShopMenu".visible = true
