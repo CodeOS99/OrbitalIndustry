@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://co7hkg834hiwo"]
+[gd_scene load_steps=29 format=4 uid="uid://co7hkg834hiwo"]
 
 [ext_resource type="PackedScene" uid="uid://ispygjsm1prg" path="res://scenes/player.tscn" id="1_w2q11"]
 [ext_resource type="Texture2D" uid="uid://dv5kcp314btj4" path="res://assets/moon_texture.png" id="2_bk4xl"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://c3cil3vd26cjt" path="res://assets/drone_crosshair/drone_crosshair.png" id="7_b8tcd"]
 [ext_resource type="AudioStream" uid="uid://itr0vtaps7k3" path="res://assets/target_locked.wav" id="7_cwtjr"]
 [ext_resource type="Shader" path="res://shader/drone.gdshader" id="9_hmihm"]
+[ext_resource type="AudioStream" uid="uid://c8ydqawlhnh6v" path="res://assets/pew.wav" id="11_fwbiu"]
 [ext_resource type="PackedScene" uid="uid://cmvkro3wmigrb" path="res://scenes/rock.tscn" id="11_xlgv0"]
+[ext_resource type="AudioStream" uid="uid://djms260ycp5d" path="res://assets/bg.wav" id="13_eiwqb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
 resource_name = "DomeGlass"
@@ -302,6 +304,16 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E to interact"
 
+[node name="Label" type="Label" parent="ManualDrone/Head/Camera3D/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+offset_right = 1.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 25
+text = "shift+p to exit drone"
+
 [node name="RayCast3D" type="RayCast3D" parent="ManualDrone/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(0, 0, -20)
@@ -318,6 +330,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42329, 0.101153, -0.826045)
 
 [node name="BulletPointRight" type="Node3D" parent="ManualDrone/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12642, 0.256055, -1.38511)
+
+[node name="Pew" type="AudioStreamPlayer" parent="ManualDrone"]
+stream = ExtResource("11_fwbiu")
+volume_db = -20.0
 
 [node name="rock" parent="." instance=ExtResource("11_xlgv0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.3428, 1.30857, 0)
@@ -402,6 +418,11 @@ transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274
 
 [node name="rock28" parent="." instance=ExtResource("11_xlgv0")]
 transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -28.861, 1.14071, 111.601)
+
+[node name="Bg" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_eiwqb")
+volume_db = -15.0
+autoplay = true
 
 [connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]

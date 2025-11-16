@@ -47,9 +47,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle vertical movement
 	if Input.is_action_pressed("jump"):
-		velocity.y = speed
+		velocity.y = 10
 	elif Input.is_action_pressed("sprint"):
-		velocity.y = -speed
+		velocity.y = -10
 	else:
 		velocity.y = lerp(velocity.y, 0.0, delta * 7.0)
 	
@@ -72,6 +72,9 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_released("interact"):
 		bullet_cooldown = true
+	
+	if Input.is_action_pressed("exit_drone"):
+		Globals.player.exit_drone()
 
 func shoot_bullets():
 	if not is_instance_valid(interactable_body):
@@ -90,6 +93,7 @@ func shoot_bullets():
 	b_r.target = interactable_body
 	
 	interactable_body.used()
+	$Pew.play()
 
 func raycast_interacttion():
 	interactable_col = false

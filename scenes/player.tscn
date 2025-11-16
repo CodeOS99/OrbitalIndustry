@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://ispygjsm1prg"]
+[gd_scene load_steps=13 format=3 uid="uid://ispygjsm1prg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_rcl8d"]
-[ext_resource type="Script" path="res://scripts/computer_ui.gd" id="2_0o8bx"]
+[ext_resource type="Script" path="res://scripts/Globals.gd" id="2_b6oy5"]
 [ext_resource type="Script" path="res://scripts/computer_main_menu.gd" id="3_18so8"]
 [ext_resource type="Script" path="res://scripts/rock_label.gd" id="4_ubcf1"]
 [ext_resource type="Script" path="res://scripts/grid_container.gd" id="5_5qbkt"]
+[ext_resource type="Script" path="res://scripts/close_btn.gd" id="5_o53ca"]
+[ext_resource type="Script" path="res://scripts/rock_giver.gd" id="6_qrxtl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rd64r"]
 height = 5.0
@@ -12,12 +14,15 @@ height = 5.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n10xv"]
 height = 5.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5aeh1"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r5xex"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qar64"]
 width = 1
 height = 1
-noise = SubResource("FastNoiseLite_5aeh1")
+noise = SubResource("FastNoiseLite_r5xex")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3rl2"]
+bg_color = Color(1, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_rcl8d")
@@ -98,6 +103,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ComputerUI" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -105,10 +111,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("2_0o8bx")
+script = ExtResource("2_b6oy5")
 
 [node name="ComputerMainMenu" type="Control" parent="UI/ComputerUI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -178,7 +183,21 @@ theme_override_font_sizes/font_size = 50
 text = "Rocks: 0"
 script = ExtResource("4_ubcf1")
 
+[node name="closeBtn" type="Button" parent="UI/ComputerUI/ComputerMainMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -13.0
+offset_bottom = 21.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_i3rl2")
+text = "X"
+script = ExtResource("5_o53ca")
+
 [node name="ShopMenu" type="Control" parent="UI/ComputerUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -270,7 +289,23 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "AUTOMATIC DRONE LVL 3(40)"
 
+[node name="closeBtn" type="Button" parent="UI/ComputerUI/ShopMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -13.0
+offset_bottom = 21.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_i3rl2")
+text = "X"
+script = ExtResource("5_o53ca")
+
 [node name="RockGiver" type="Node3D" parent="."]
+script = ExtResource("6_qrxtl")
 
 [connection signal="pressed" from="UI/ComputerUI/ComputerMainMenu/MenuOptions/Button" to="UI/ComputerUI/ComputerMainMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="UI/ComputerUI/ComputerMainMenu/MenuOptions/Button2" to="UI/ComputerUI/ComputerMainMenu" method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/ComputerUI/ComputerMainMenu/closeBtn" to="UI/ComputerUI/ComputerMainMenu/closeBtn" method="_on_pressed"]
+[connection signal="pressed" from="UI/ComputerUI/ShopMenu/closeBtn" to="UI/ComputerUI/ShopMenu/closeBtn" method="_on_pressed"]

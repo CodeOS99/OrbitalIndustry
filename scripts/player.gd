@@ -90,3 +90,7 @@ func show_computer():
 
 func active():
 	return camera.is_current()
+
+func exit_drone():
+	camera.make_current()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
