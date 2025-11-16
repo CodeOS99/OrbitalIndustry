@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbnx1xpbntayq"]
+
+[ext_resource type="PackedScene" uid="uid://coi523mvc6eoe" path="res://assets/bullet/bullet.blend" id="1_16k14"]
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_u72em"]
+
+[node name="Bullet" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_u72em")
+speed = 0.0
+
+[node name="mesh" parent="." instance=ExtResource("1_16k14")]

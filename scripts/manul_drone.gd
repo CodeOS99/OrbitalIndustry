@@ -10,10 +10,13 @@ const SENSITIVITY := 0.004
 @onready var interact_label: Label = $Head/Camera3D/CanvasLayer/InteractLabel
 @onready var crosshair: TextureRect = $Head/Camera3D/CanvasLayer/Crosshair
 @onready var animation_player: AnimationPlayer = $Head/AnimationPlayer
+@onready var bullet_point_left: Node3D = $Head/BulletPointLeft
+@onready var bullet_point_right: Node3D = $Head/BulletPointRight
 
 var interactable_col := false
 var interactable_body: Node3D
 var played_blip := true
+var bullet := preload("res://scenes/bullet.tscn")
 
 func _ready() -> void:
 	Globals.manual_drone = self
@@ -63,7 +66,17 @@ func _process(delta: float) -> void:
 	
 	raycast_interacttion()
 	
-	
+	if interactable_col and Input.is_action_pressed("interact"):
+		var b_l := bullet.instantiate()
+		get_tree().root.add_child(b_l)
+		b_l.global_position = bullet_point_left.global_position
+		b_l.rotation.x = rotation.y
+		
+		var b_r := bullet.instantiate()
+		get_tree().root.add_child(b_r)
+		b_r.global_position = bullet_point_right.global_position
+		b_r.global_rotation = bullet_point_right.global_rotation
+
 func raycast_interacttion():
 	interactable_col = false
 	if raycast.is_colliding():
