@@ -75,6 +75,8 @@ func _process(delta: float) -> void:
 		bullet_cooldown = true
 
 func shoot_bullets():
+	if not is_instance_valid(interactable_body):
+		return
 	var shoot_direction := -camera.global_transform.basis.z
 	
 	var b_l := bullet.instantiate()
@@ -87,6 +89,8 @@ func shoot_bullets():
 	
 	b_l.target = interactable_body
 	b_r.target = interactable_body
+	
+	interactable_body.used()
 
 func raycast_interacttion():
 	interactable_col = false

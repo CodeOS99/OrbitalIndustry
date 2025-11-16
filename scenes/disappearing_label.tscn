@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dam6c3lw3stf0"]
+
+[ext_resource type="Script" path="res://scripts/disappearing_label.gd" id="1_uatqs"]
+
+[node name="DisappearingLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 21.0
+text = "+2 Rocks"
+script = ExtResource("1_uatqs")

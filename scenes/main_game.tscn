@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://drv85j4aeln3n" path="res://assets/drone/drone.blend" id="6_x6opd"]
 [ext_resource type="Texture2D" uid="uid://c3cil3vd26cjt" path="res://assets/drone_crosshair/drone_crosshair.png" id="7_b8tcd"]
 [ext_resource type="AudioStream" uid="uid://itr0vtaps7k3" path="res://assets/target_locked.wav" id="7_cwtjr"]
-[ext_resource type="PackedScene" uid="uid://dx8e1vb2lf606" path="res://assets/rock/rock.blend" id="8_tpuri"]
 [ext_resource type="Shader" path="res://shader/drone.gdshader" id="9_hmihm"]
+[ext_resource type="PackedScene" uid="uid://cmvkro3wmigrb" path="res://scenes/rock.tscn" id="11_xlgv0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfhiy"]
 resource_name = "DomeGlass"
@@ -52,6 +52,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tjvfm")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hjq4u"]
+radius = 6.34357
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aau53"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -198,9 +201,6 @@ _data = {
 "fly": SubResource("Animation_u4nbk")
 }
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jhgj3"]
-points = PackedVector3Array(-0.250473, -0.361982, -0.912831, 1.01804, 0.377301, 0.143531, 0.950316, 0.426985, 0.191919, 0.275728, 0.479996, -1.73845, -0.142139, 0.742057, 1.60612, 0.719386, -0.436607, 0.532143, -0.796809, -0.212626, 0.201565, -0.65879, 0.478455, -0.222786, 0.712965, -0.429313, -0.553442, -0.261311, -0.434051, 0.856157, 0.0145821, 0.900793, 0.141902, -0.621979, -0.41636, -0.384902, 0.988505, 0.47518, -0.169674, -0.502461, 0.478282, -0.741508, -0.0410435, 0.646213, 1.64389, -0.669748, 0.48174, 0.563183, 0.227091, 0.380219, -1.79715, -0.0414395, 0.915238, 0.736412, 0.119176, 0.788957, -0.689279, 1.02133, 0.324681, -0.17352, -0.396464, 0.683474, -0.325317, -0.256699, -0.425817, -0.873232, 0.329764, 0.324108, -1.70093, -0.679432, -0.420036, 0.304763, -0.0379213, 0.743367, 1.61053, -0.144308, 0.640621, 1.62002, -0.514426, 0.271585, -0.754474, 0.898022, 0.530678, 0.0359661, -0.732245, 0.324908, -0.120478, 0.971235, 0.112174, 0.198456, -0.737192, 0.325371, 0.467405, -0.685256, -0.424888, -0.228059)
-
 [node name="MainGame" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -212,6 +212,11 @@ transform = Transform3D(4.775, 0, 0, 0, 4.775, 0, 0, 0, 4.775, 3.71856, 0.18, -0
 
 [node name="Icosphere" parent="dome2" index="0"]
 mesh = SubResource("ArrayMesh_i5ty7")
+
+[node name="Area3D" type="Area3D" parent="dome2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dome2/Area3D"]
+shape = SubResource("SphereShape3D_hjq4u")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_25iyd")
@@ -314,19 +319,92 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42329, 0.101153, -0.826045)
 [node name="BulletPointRight" type="Node3D" parent="ManualDrone/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12642, 0.256055, -1.38511)
 
-[node name="rock" type="StaticBody3D" parent="." groups=["drone_interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.736, 0.983, 6.018)
+[node name="rock" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.3428, 1.30857, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="rock"]
-transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_jhgj3")
+[node name="rock2" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.802797, 0, 0.596253, 0, 1, 0, -0.596253, 0, 0.802797, -26.6937, 1.30857, 17.7023)
 
-[node name="mesh" parent="rock" instance=ExtResource("8_tpuri")]
-transform = Transform3D(1.98, 0, 0, 0, 1.98, 0, 0, 0, 1.98, 0, 0, 0)
+[node name="rock3" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.802797, 0, 0.596253, 0, 1, 0, -0.596253, 0, 0.802797, -26.6937, 1.30857, 63.1326)
+
+[node name="rock4" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.802797, 0, 0.596253, 0, 1, 0, -0.596253, 0, 0.802797, -75.9373, 1.30857, 47.7405)
+
+[node name="rock5" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.594739, 0, 0.803919, 0, 1, 0, -0.803919, 0, -0.594739, -75.9373, 1.30857, -25.3869)
+
+[node name="rock6" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.716947, 0, 0.697128, 0, 1, 0, -0.697128, 0, 0.716947, -75.9373, 1.30857, -83.6242)
+
+[node name="rock7" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.348049, 0, 0.937477, 0, 1, 0, -0.937477, 0, 0.348049, -5.44119, 1.30857, -83.6242)
+
+[node name="rock8" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.348049, 0, 0.937477, 0, 1, 0, -0.937477, 0, 0.348049, -5.44119, 1.30857, 100.707)
+
+[node name="rock9" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.853578, 0, 0.520965, 0, 1, 0, -0.520965, 0, 0.853578, 44.0668, 1.30857, 100.707)
+
+[node name="rock10" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.123394, 0, 0.992358, 0, 1, 0, -0.992358, 0, 0.123394, 44.0668, 1.30857, 41.3518)
+
+[node name="rock11" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(0.123394, 0, 0.992358, 0, 1, 0, -0.992358, 0, 0.123394, 22.063, 1.30857, -47.9935)
+
+[node name="rock12" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.681603, 0, 0.731723, 0, 1, 0, -0.731723, 0, -0.681603, 58.4606, 1.30857, -102.815)
+
+[node name="rock13" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.681603, 0, 0.731723, 0, 1, 0, -0.731723, 0, -0.681603, 83.4187, 1.30857, -36.025)
+
+[node name="rock14" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.177274, 0, 0.984162, 0, 1, 0, -0.984162, 0, -0.177274, 83.4187, 1.30857, -36.025)
+
+[node name="rock15" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.177274, 0, 0.984162, 0, 1, 0, -0.984162, 0, -0.177274, 83.4187, 1.14068, 33.075)
+
+[node name="rock16" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.177274, 0, 0.984162, 0, 1, 0, -0.984162, 0, -0.177274, 83.4187, 1.14068, 90.3458)
+
+[node name="rock17" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.177274, 0, 0.984162, 0, 1, 0, -0.984162, 0, -0.177274, 113.881, 1.14068, 98.1416)
+
+[node name="rock18" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.177274, 0, 0.984162, 0, 1, 0, -0.984162, 0, -0.177274, 113.881, 1.14071, -2.12436)
+
+[node name="rock19" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.899505, 0, 0.436912, 0, 1, 0, -0.436912, 0, -0.899505, 69.2074, 1.14071, -2.12436)
+
+[node name="rock20" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.348703, 0, 0.937233, 0, 1, 0, -0.937233, 0, -0.348703, 69.2074, 1.14071, -87.3161)
+
+[node name="rock21" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.976304, 0, 0.216405, 0, 1, 0, -0.216405, 0, -0.976304, -26.1361, 1.14071, -87.3161)
+
+[node name="rock22" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.976304, 0, 0.216405, 0, 1, 0, -0.216405, 0, -0.976304, -60.7771, 1.14071, -41.1906)
+
+[node name="rock23" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -60.7771, 1.14071, -41.1906)
+
+[node name="rock24" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -60.7771, 1.14071, 77.422)
+
+[node name="rock25" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -96.3909, 1.14071, 77.422)
+
+[node name="rock26" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -96.3909, 1.14071, 104.422)
+
+[node name="rock27" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -41.7819, 1.14071, 104.422)
+
+[node name="rock28" parent="." instance=ExtResource("11_xlgv0")]
+transform = Transform3D(-0.983274, 0, -0.182133, 0, 1, 0, 0.182133, 0, -0.983274, -28.861, 1.14071, 111.601)
 
 [connection signal="body_entered" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Computer/Area3D" to="Computer" method="_on_area_3d_body_exited"]
 
 [editable path="dome2"]
 [editable path="ManualDrone/Head/mesh"]
-[editable path="rock/mesh"]

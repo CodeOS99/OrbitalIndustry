@@ -15,12 +15,11 @@ var t_bob = 0.0
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 4.9
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
+@onready var disappearing_container = $UI/HUD/VBoxContainer
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
